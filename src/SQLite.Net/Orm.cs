@@ -27,6 +27,7 @@ using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
 using SQLite.Net.Attributes;
+using SQLite.Net.Extensions;
 using NotNullAttribute = SQLite.Net.Attributes.NotNullAttribute;
 
 namespace SQLite.Net
@@ -70,7 +71,7 @@ namespace SQLite.Net
             IDictionary<Type, string> extraTypeMappings)
         {
             var clrType = p.ColumnType;
-            var interfaces = clrType.GetTypeInfo().ImplementedInterfaces.ToList();
+            var interfaces = clrType.GetInterfaces().ToList();
 
             string extraMapping;
             if (extraTypeMappings.TryGetValue(clrType, out extraMapping))
@@ -123,7 +124,7 @@ namespace SQLite.Net
             {
                 return "bigint";
             }
-            if (clrType.GetTypeInfo().IsEnum)
+            if (clrType.IsEnum)
             {
                 return "integer";
             }
@@ -185,7 +186,7 @@ namespace SQLite.Net
                 {
                     if (!attribute.UseProperty)
                     {
-                        return Convert.ChangeType(attribute.Value, p.PropertyType);
+                        return Convert.ChangeType(attribute.Value, p.PropertyType, null);
                     }
 
                     var obj = Activator.CreateInstance(p.DeclaringType);

@@ -1,17 +1,17 @@
 ﻿//
 // Copyright (c) 2012 Krueger Systems, Inc.
 // Copyright (c) 2013 Øystein Krog (oystein.krog@gmail.com)
-// 
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -21,6 +21,10 @@
 // THE SOFTWARE.
 //
 
+using JetBrains.Annotations;
+using SQLite.Net.Attributes;
+using SQLite.Net.Extensions;
+using SQLite.Net.Interop;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,9 +33,6 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading;
-using JetBrains.Annotations;
-using SQLite.Net.Attributes;
-using SQLite.Net.Interop;
 
 namespace SQLite.Net
 {
@@ -167,7 +168,7 @@ namespace SQLite.Net
 
             IDbHandle handle;
             var databasePathAsBytes = GetNullTerminatedUtf8(DatabasePath);
-            var r = Platform.SQLiteApi.Open(databasePathAsBytes, out handle, (int) openFlags, IntPtr.Zero);
+            var r = Platform.SQLiteApi.Open(databasePathAsBytes, out handle, (int)openFlags, IntPtr.Zero);
 
             Handle = handle;
             if (r != Result.OK)
@@ -227,7 +228,7 @@ namespace SQLite.Net
                 _busyTimeout = value;
                 if (Handle != NullHandle)
                 {
-                    Platform.SQLiteApi.BusyTimeout(Handle, (int) _busyTimeout.TotalMilliseconds);
+                    Platform.SQLiteApi.BusyTimeout(Handle, (int)_busyTimeout.TotalMilliseconds);
                 }
             }
         }
@@ -320,7 +321,7 @@ namespace SQLite.Net
         [PublicAPI]
         public TableMapping GetMapping<T>()
         {
-            return GetMapping(typeof (T));
+            return GetMapping(typeof(T));
         }
 
         /// <summary>
@@ -329,7 +330,7 @@ namespace SQLite.Net
         [PublicAPI]
         public int DropTable<T>()
         {
-            var map = GetMapping(typeof (T));
+            var map = GetMapping(typeof(T));
 
             var query = string.Format("drop table if exists \"{0}\"", map.TableName);
 
@@ -348,7 +349,7 @@ namespace SQLite.Net
         [PublicAPI]
         public int CreateTable<T>(CreateFlags createFlags = CreateFlags.None)
         {
-            return CreateTable(typeof (T), createFlags);
+            return CreateTable(typeof(T), createFlags);
         }
 
         /// <summary>
@@ -458,7 +459,7 @@ namespace SQLite.Net
         [PublicAPI]
         public int CreateIndex(string indexName, string tableName, string columnName, bool unique = false)
         {
-            return CreateIndex(indexName, tableName, new[] {columnName}, unique);
+            return CreateIndex(indexName, tableName, new[] { columnName }, unique);
         }
 
         /// <summary>
@@ -498,7 +499,7 @@ namespace SQLite.Net
             MemberExpression mx;
             if (property.Body.NodeType == ExpressionType.Convert)
             {
-                mx = ((UnaryExpression) property.Body).Operand as MemberExpression;
+                mx = ((UnaryExpression)property.Body).Operand as MemberExpression;
             }
             else
             {
@@ -639,7 +640,7 @@ namespace SQLite.Net
                 _sw.Stop();
                 _elapsedMilliseconds += _sw.ElapsedMilliseconds;
 
-                TraceListener.WriteLine("Finished in {0} ms ({1:0.0} s total)", _sw.ElapsedMilliseconds, _elapsedMilliseconds/1000.0);
+                TraceListener.WriteLine("Finished in {0} ms ({1:0.0} s total)", _sw.ElapsedMilliseconds, _elapsedMilliseconds / 1000.0);
             }
 
             return r;
@@ -667,7 +668,7 @@ namespace SQLite.Net
                 _sw.Stop();
                 _elapsedMilliseconds += _sw.ElapsedMilliseconds;
 
-                TraceListener.WriteLine("Finished in {0} ms ({1:0.0} s total)", _sw.ElapsedMilliseconds, _elapsedMilliseconds/1000.0);
+                TraceListener.WriteLine("Finished in {0} ms ({1:0.0} s total)", _sw.ElapsedMilliseconds, _elapsedMilliseconds / 1000.0);
             }
 
             return r;
@@ -803,7 +804,7 @@ namespace SQLite.Net
         [PublicAPI]
         public T Get<T>(object pk) where T : class
         {
-            var map = GetMapping(typeof (T));
+            var map = GetMapping(typeof(T));
             return Query<T>(map.GetByPrimaryKeySql, pk).First();
         }
 
@@ -839,7 +840,7 @@ namespace SQLite.Net
         [PublicAPI]
         public T Find<T>(object pk) where T : class
         {
-            var map = GetMapping(typeof (T));
+            var map = GetMapping(typeof(T));
             return Query<T>(map.GetByPrimaryKeySql, pk).FirstOrDefault();
         }
 
@@ -908,9 +909,9 @@ namespace SQLite.Net
         [PublicAPI]
         public void BeginTransaction()
         {
-            // The BEGIN command only works if the transaction stack is empty, 
-            //    or in other words if there are no pending transactions. 
-            // If the transaction stack is not empty when the BEGIN command is invoked, 
+            // The BEGIN command only works if the transaction stack is empty,
+            //    or in other words if there are no pending transactions.
+            // If the transaction stack is not empty when the BEGIN command is invoked,
             //    then the command fails with an error.
             // Rather than crash with an error, we will just ignore calls to BeginTransaction
             //    that would result in an error.
@@ -925,7 +926,7 @@ namespace SQLite.Net
                     var sqlExp = ex as SQLiteException;
                     if (sqlExp != null)
                     {
-                        // It is recommended that applications respond to the errors listed below 
+                        // It is recommended that applications respond to the errors listed below
                         //    by explicitly issuing a ROLLBACK command.
                         // TODO: This rollback failsafe should be localized to all throw sites.
                         switch (sqlExp.Result)
@@ -941,7 +942,7 @@ namespace SQLite.Net
                     }
                     else
                     {
-                        // Call decrement and not VolatileWrite in case we've already 
+                        // Call decrement and not VolatileWrite in case we've already
                         //    created a transaction point in SaveTransactionPoint since the catch.
                         Interlocked.Decrement(ref _transactionDepth);
                     }
@@ -979,7 +980,7 @@ namespace SQLite.Net
                 var sqlExp = ex as SQLiteException;
                 if (sqlExp != null)
                 {
-                    // It is recommended that applications respond to the errors listed below 
+                    // It is recommended that applications respond to the errors listed below
                     //    by explicitly issuing a ROLLBACK command.
                     // TODO: This rollback failsafe should be localized to all throw sites.
                     switch (sqlExp.Result)
@@ -1034,8 +1035,8 @@ namespace SQLite.Net
         /// <param name="noThrow">true to avoid throwing exceptions, false otherwise</param>
         private void RollbackTo(string savepoint, bool noThrow)
         {
-            // Rolling back without a TO clause rolls backs all transactions 
-            //    and leaves the transaction stack empty.   
+            // Rolling back without a TO clause rolls backs all transactions
+            //    and leaves the transaction stack empty.
             try
             {
                 if (string.IsNullOrEmpty(savepoint))
@@ -1443,6 +1444,7 @@ namespace SQLite.Net
             if (map.PK != null && map.PK.IsAutoGuid)
             {
                 var prop = objType.GetRuntimeProperty(map.PK.PropertyName);
+
                 if (prop != null)
                 {
                     if (prop.GetValue(obj, null).Equals(Guid.Empty))
@@ -1556,17 +1558,17 @@ namespace SQLite.Net
             }
 
             var cols = from p in map.Columns
-                where p != pk
-                select p;
+                       where p != pk
+                       select p;
             var vals = from c in cols
-                select c.GetValue(obj);
+                       select c.GetValue(obj);
             var ps = new List<object>(vals)
             {
                 pk.GetValue(obj)
             };
             var q = string.Format("update \"{0}\" set {1} where {2} = ? ", map.TableName,
                 string.Join(",", (from c in cols
-                    select "\"" + c.Name + "\" = ? ").ToArray()), pk.Name);
+                                  select "\"" + c.Name + "\" = ? ").ToArray()), pk.Name);
             try
             {
                 rowsAffected = Execute(q, ps.ToArray());
@@ -1655,7 +1657,7 @@ namespace SQLite.Net
         [PublicAPI]
         public int Delete<T>(object primaryKey)
         {
-            var map = GetMapping(typeof (T));
+            var map = GetMapping(typeof(T));
             var pk = map.PK;
             if (pk == null)
             {
@@ -1679,7 +1681,7 @@ namespace SQLite.Net
         [PublicAPI]
         public int DeleteAll<T>()
         {
-            var map = GetMapping(typeof (T));
+            var map = GetMapping(typeof(T));
             var query = string.Format("delete from \"{0}\"", map.TableName);
             return Execute(query);
         }
@@ -1700,7 +1702,7 @@ namespace SQLite.Net
             IDbHandle destDB;
             byte[] databasePathAsBytes = GetNullTerminatedUtf8(destDBPath);
             Result r = sqliteApi.Open(databasePathAsBytes, out destDB,
-                (int) (SQLiteOpenFlags.Create | SQLiteOpenFlags.ReadWrite), IntPtr.Zero);
+                (int)(SQLiteOpenFlags.Create | SQLiteOpenFlags.ReadWrite), IntPtr.Zero);
 
             if (r != Result.OK)
             {
@@ -1712,7 +1714,7 @@ namespace SQLite.Net
 
             if (bHandle == null)
             {
-                // Close the database connection 
+                // Close the database connection
                 sqliteApi.Close(destDB);
 
                 throw SQLiteException.New(r, String.Format("Could not initiate backup process: {0}", destDBPath));
@@ -1737,19 +1739,19 @@ namespace SQLite.Net
 
             if (r != Result.OK)
             {
-                // Close the database connection 
+                // Close the database connection
                 sqliteApi.Close(destDB);
 
                 throw SQLiteException.New(r, String.Format("Could not finish backup process: {0} ({1})", destDBPath, r));
             }
 
-            // Close the database connection 
+            // Close the database connection
             sqliteApi.Close(destDB);
 
             return destDBPath;
         }
 
-        #endregion
+        #endregion Backup
 
         ~SQLiteConnection()
         {

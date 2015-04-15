@@ -27,6 +27,7 @@ using System.Reflection;
 using JetBrains.Annotations;
 using SQLite.Net.Attributes;
 using SQLite.Net.Interop;
+using SQLite.Net.Extensions;
 
 namespace SQLite.Net
 {
@@ -40,7 +41,7 @@ namespace SQLite.Net
         {
             MappedType = type;
 
-            var tableAttr = type.GetTypeInfo().GetCustomAttributes<TableAttribute>().FirstOrDefault();
+            var tableAttr = type.GetCustomAttributes<TableAttribute>().FirstOrDefault();
 
             TableName = tableAttr != null ?  tableAttr.Name : MappedType.Name;
 
@@ -139,6 +140,8 @@ namespace SQLite.Net
                 var colAttr =
                     prop.GetCustomAttributes<ColumnAttribute>(true).FirstOrDefault();
 
+                
+
                 _prop = prop;
                 Name = colAttr == null ? prop.Name : colAttr.Name;
                 //If this type is Nullable<T> then Nullable.GetUnderlyingType returns the T, otherwise it returns null, so get the actual type instead
@@ -213,15 +216,15 @@ namespace SQLite.Net
             public void SetValue(object obj, [CanBeNull] object val)
             {
                 var propType = _prop.PropertyType;
-                var typeInfo = propType.GetTypeInfo();
+              
 
-                if (typeInfo.IsGenericType && propType.GetGenericTypeDefinition() == typeof (Nullable<>))
+                if (propType.IsGenericType && propType.GetGenericTypeDefinition() == typeof (Nullable<>))
                 {
-                    var typeCol = propType.GetTypeInfo().GenericTypeArguments;
+                    var typeCol = propType.GetGenericArguments();
                     if (typeCol.Length > 0)
                     {
                         var nullableType = typeCol[0];
-                        var baseType = nullableType.GetTypeInfo().BaseType;
+                        var baseType = nullableType.BaseType;
                         if (baseType == typeof (Enum))
                         {
                             SetEnumValue(obj, nullableType, val);
@@ -232,7 +235,7 @@ namespace SQLite.Net
                         }
                     }
                 }
-                else if (typeInfo.BaseType == typeof (Enum))
+                else if (propType.BaseType == typeof (Enum))
                 {
                     SetEnumValue(obj, propType, val);
                 }

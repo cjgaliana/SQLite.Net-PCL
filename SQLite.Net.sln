@@ -1,7 +1,5 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.22512.0
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -53,6 +51,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLite.Net", "src\SQLite.Net\SQLite.Net.csproj", "{4971D437-0694-4297-A8CC-146CE08C3BD9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLite.Net.Async", "src\SQLite.Net.Async\SQLite.Net.Async.csproj", "{3AB34E91-8E1A-442F-8E66-2494B371A890}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLite.Net.Platform.Silverlight", "SQLite.Net.Platform.Silverlight\SQLite.Net.Platform.Silverlight.csproj", "{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -931,6 +931,42 @@ Global
 		{3AB34E91-8E1A-442F-8E66-2494B371A890}.Release|x64.Build.0 = Release|Any CPU
 		{3AB34E91-8E1A-442F-8E66-2494B371A890}.Release|x86.ActiveCfg = Release|Any CPU
 		{3AB34E91-8E1A-442F-8E66-2494B371A890}.Release|x86.Build.0 = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Ad-Hoc|Any CPU.Build.0 = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Ad-Hoc|ARM.ActiveCfg = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Ad-Hoc|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Ad-Hoc|Mixed Platforms.Build.0 = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Ad-Hoc|x64.ActiveCfg = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Ad-Hoc|x86.ActiveCfg = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.AppStore|Any CPU.Build.0 = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.AppStore|ARM.ActiveCfg = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.AppStore|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.AppStore|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.AppStore|Mixed Platforms.Build.0 = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.AppStore|x64.ActiveCfg = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.AppStore|x86.ActiveCfg = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Release|ARM.ActiveCfg = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Release|x64.ActiveCfg = Release|Any CPU
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -952,5 +988,6 @@ Global
 		{46DF3E43-6B65-4C3D-8911-64FCC301040F} = {0C4021EF-617B-4620-ADD3-A702B4F9FA86}
 		{0A947CD1-3C6F-415A-A122-233BAE3005FD} = {0C4021EF-617B-4620-ADD3-A702B4F9FA86}
 		{9E5D6B89-B69B-486B-9F7B-406BE8690589} = {49C7015B-F41A-47A6-8200-B925902E74E9}
+		{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A} = {59584026-7610-4CD5-A74E-D2B0A2E1CE87}
 	EndGlobalSection
 EndGlobal
