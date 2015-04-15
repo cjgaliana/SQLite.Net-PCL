@@ -52,7 +52,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLite.Net", "src\SQLite.Ne
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLite.Net.Async", "src\SQLite.Net.Async\SQLite.Net.Async.csproj", "{3AB34E91-8E1A-442F-8E66-2494B371A890}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLite.Net.Platform.Silverlight", "SQLite.Net.Platform.Silverlight\SQLite.Net.Platform.Silverlight.csproj", "{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLite.Net.Platform.Silverlight", "src\SQLite.Net.Platform.Silverlight\SQLite.Net.Platform.Silverlight.csproj", "{36E0BFE8-A5D5-483F-9D31-AB1E31CAD13A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
